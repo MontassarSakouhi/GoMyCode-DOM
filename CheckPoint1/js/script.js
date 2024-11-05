@@ -8,18 +8,23 @@ document.querySelectorAll('.card-body').forEach(card => {
     const like = card.querySelector('.fa-heart');
     const price = card.querySelector('.unit-price')
     const total = document.querySelector(".total")
+
+
     plus.addEventListener("click", () => {
         quantity.innerText = eval(quantity.innerText + "+0.5")
-        total.innerText = quantity.innerText * parseFloat(price.innerText) // .........
-
+        calcul()
+        console.log(quantity.innerHTML)
     })
 
     minus.addEventListener("click", () => {
         if (quantity.innerText != 0) {
             quantity.innerText = eval(quantity.innerText + "-0.5")
+            calcul()
         }
+
     })
     trash.addEventListener("click", () => {
+
 
         card.remove()
     })
@@ -30,13 +35,25 @@ document.querySelectorAll('.card-body').forEach(card => {
 
         console.log(like.classList.contains("red"))
     })
+    function calcul() {
+        const quantityValue = parseFloat(quantity.innerText);
+        const priceValue = parseFloat(price.innerText);
 
+        cumulativeTotal += quantityValue * priceValue;
+        total.innerText = cumulativeTotal;
+    }
+    function calcul() {
+        let cumulativeTotal = 0;
 
+        document.querySelectorAll('.card-body').forEach(card => {
+            const quantityValue = parseFloat(card.querySelector('.quantity').innerText);
+            const priceValue = parseFloat(card.querySelector('.unit-price').innerText);
+            cumulativeTotal += quantityValue * priceValue;
+        });
+
+        total.innerText = cumulativeTotal;
+    }
 })
 
 
 
-
-window.addEventListener("mousedown", (e) => {
-    console.log(e.button)
-})
